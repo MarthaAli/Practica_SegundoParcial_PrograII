@@ -1,0 +1,103 @@
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.time.LocalDate;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+public class Restaurante extends JFrame {
+
+    private JPanel contentPane;
+    private JTextField txtConsumo;
+    private JLabel lblResultado;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                Restaurante frame = new Restaurante();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public Restaurante() {
+        setTitle("Descuento Restaurante");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 360, 220);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(10,10,10,10));
+        contentPane.setLayout(null);
+        setContentPane(contentPane);
+
+        JLabel lblConsumo = new JLabel("Consumo (Bs.):");
+        lblConsumo.setBounds(20, 20, 100, 20);
+        contentPane.add(lblConsumo);
+
+        txtConsumo = new JTextField();
+        txtConsumo.setBounds(130, 20, 120, 20);
+        txtConsumo.setColumns(10);
+        contentPane.add(txtConsumo);
+
+        JButton btnCalcular = new JButton("Calcular");
+        btnCalcular.setBounds(20, 60, 100, 25);
+        contentPane.add(btnCalcular);
+
+        JButton btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setBounds(130, 60, 100, 25);
+        contentPane.add(btnLimpiar);
+
+        JButton btnSalir = new JButton("Salir");
+        btnSalir.setBounds(240, 60, 80, 25);
+        contentPane.add(btnSalir);
+
+        lblResultado = new JLabel("");
+        lblResultado.setBounds(20, 100, 300, 20);
+        contentPane.add(lblResultado);
+
+        btnCalcular.addActionListener((ActionEvent e) -> {
+            try {
+                double consumo = Double.parseDouble(txtConsumo.getText().trim());
+                double descuento = 0.0;
+
+                if (consumo >= 30.0 && consumo <= 50.0) {
+                    descuento = 0.10;
+                } else if (consumo > 50.0) {
+                    descuento = 0.20;
+                }
+
+                double importe = consumo * (1 - descuento);
+                int pct = (int)(descuento * 100);
+
+                lblResultado.setText(
+                    String.format("Importe a pagar: Bs. %.2f  (Descuento: %d%%)",
+                                  importe, pct)
+                );
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(
+                    Restaurante.this,
+                    "Por favor, ingrese un valor numérico válido.",
+                    "Error de entrada",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                lblResultado.setText("");
+            }
+        });
+        btnLimpiar.addActionListener(e -> {
+            txtConsumo.setText("");
+            lblResultado.setText("");
+        });
+        btnSalir.addActionListener(e -> {
+            int opcion = JOptionPane.showConfirmDialog(
+                Restaurante.this,
+                "¿Desea terminar la aplicación?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+            );
+            if (opcion == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+    }
+}
