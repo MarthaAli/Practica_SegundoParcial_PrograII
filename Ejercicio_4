@@ -1,0 +1,180 @@
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+
+public class Fechas extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtDia;
+	private JTextField txtMes;
+	private JTextField txtAnio;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Fechas frame = new Fechas();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Fechas() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblMes = new JLabel("Mes: ");
+		lblMes.setBounds(20, 47, 45, 13);
+		contentPane.add(lblMes);
+		
+		JLabel lblDia = new JLabel("Día: ");
+		lblDia.setBounds(20, 24, 45, 13);
+		contentPane.add(lblDia);
+		
+		JLabel lblAnio = new JLabel("Año:");
+		lblAnio.setBounds(20, 74, 45, 13);
+		contentPane.add(lblAnio);
+		
+		txtDia = new JTextField();
+		txtDia.setBounds(67, 21, 96, 19);
+		contentPane.add(txtDia);
+		txtDia.setColumns(10);
+		
+		txtMes = new JTextField();
+		txtMes.setBounds(67, 44, 96, 19);
+		contentPane.add(txtMes);
+		txtMes.setColumns(10);
+		
+		txtAnio = new JTextField();
+		txtAnio.setBounds(67, 71, 96, 19);
+		contentPane.add(txtAnio);
+		txtAnio.setColumns(10);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(199, 20, 85, 21);
+		contentPane.add(btnAceptar);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBounds(199, 43, 85, 21);
+		contentPane.add(btnLimpiar);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.setBounds(199, 70, 85, 21);
+		contentPane.add(btnSalir);
+		
+		JPanel EnLetras = new JPanel();
+		EnLetras.setBounds(20, 114, 260, 40);
+		EnLetras.setBorder(BorderFactory.createTitledBorder("En Letras:"));
+		contentPane.add(EnLetras);
+		EnLetras.setLayout(null);
+		
+		JLabel lblFecha = new JLabel("");
+		lblFecha.setBounds(51, 17, 167, 13);
+		EnLetras.add(lblFecha);
+		btnAceptar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	 try {
+                     int dia = Integer.parseInt(txtDia.getText().trim());
+                     int mes = Integer.parseInt(txtMes.getText().trim());
+                     int anio = Integer.parseInt(txtAnio.getText().trim());
+                     if (mes >= 13) {
+                         JOptionPane.showMessageDialog(
+                             null,
+                             "Por favor, ingrese un mes valido",
+                             "Error",
+                             JOptionPane.ERROR_MESSAGE
+                         );
+                         return;
+                     }
+                     if (anio >2025 || anio<1940) {
+                         JOptionPane.showMessageDialog(
+                             null,
+                             "Por favor, ingrese un año valido",
+                             "Error",
+                             JOptionPane.ERROR_MESSAGE
+                         );
+                         return;
+                     }
+                     
+                     String nombreMes;
+                     switch (mes) {
+                         case 1:  nombreMes = "Enero";     break;
+                         case 2:  nombreMes = "Febrero";   break;
+                         case 3:  nombreMes = "Marzo";     break;
+                         case 4:  nombreMes = "Abril";     break;
+                         case 5:  nombreMes = "Mayo";      break;
+                         case 6:  nombreMes = "Junio";     break;
+                         case 7:  nombreMes = "Julio";     break;
+                         case 8:  nombreMes = "Agosto";    break;
+                         case 9:  nombreMes = "Septiembre";break;
+                         case 10: nombreMes = "Octubre";   break;
+                         case 11: nombreMes = "Noviembre"; break;
+                         case 12: nombreMes = "Diciembre"; break;
+                         default:
+                             nombreMes = "";
+                     }
+                     lblFecha.setText(dia + " de " + nombreMes + " de " + anio);
+
+                 } catch (NumberFormatException ex) {
+                     JOptionPane.showMessageDialog(
+                         Fechas.this,
+                         "Por favor, ingrese una fecha válida.",
+                         "Error",
+                         JOptionPane.ERROR_MESSAGE
+                     );
+                     lblFecha.setText("");
+                 }
+            	 
+            	 btnLimpiar.addActionListener(new ActionListener() {
+         		    public void actionPerformed(ActionEvent e) {
+         		        txtDia.setText("");
+         		        txtMes.setText("");
+         		        txtAnio.setText("");
+         		        lblFecha.setText("");
+         		    }
+         		});
+            	btnSalir.addActionListener(new ActionListener() {
+            		@Override
+                    public void actionPerformed(ActionEvent e) {
+                        int opcion = JOptionPane.showConfirmDialog(
+                            Fechas.this,
+                            "¿Desea terminar la aplicación?",
+                            "Pregunta",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                        );
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        }
+         		    }
+         		});
+            }
+		});
+
+	}
+}
