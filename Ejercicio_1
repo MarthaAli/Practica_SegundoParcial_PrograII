@@ -1,0 +1,124 @@
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Period;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+
+public class VentanaEdad extends JFrame {
+
+    private JPanel contentPane;
+    private JTextField txtDia;
+    private JTextField txtMes;
+    private JTextField txtAnio;
+    private JLabel lblEdad;
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                VentanaEdad frame = new VentanaEdad();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public VentanaEdad() {
+        setTitle("Calculadora de Edad");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 350, 250);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(255, 230, 255));
+        contentPane.setForeground(new Color(255, 128, 255));
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        // Día
+        JLabel lblDia = new JLabel("Día:");
+        lblDia.setForeground(new Color(255, 51, 255));
+        lblDia.setBounds(20, 20, 46, 14);
+        contentPane.add(lblDia);
+
+        txtDia = new JTextField();
+        txtDia.setBackground(new Color(255, 204, 255));
+        txtDia.setBounds(80, 17, 86, 20);
+        contentPane.add(txtDia);
+        txtDia.setColumns(10);
+
+        // Mes
+        JLabel lblMes = new JLabel("Mes:");
+        lblMes.setForeground(new Color(255, 51, 255));
+        lblMes.setBounds(20, 50, 46, 14);
+        contentPane.add(lblMes);
+
+        txtMes = new JTextField();
+        txtMes.setBackground(new Color(255, 204, 255));
+        txtMes.setBounds(80, 47, 86, 20);
+        contentPane.add(txtMes);
+        txtMes.setColumns(10);
+
+        // Año
+        JLabel lblAnio = new JLabel("Año:");
+        lblAnio.setForeground(new Color(255, 51, 255));
+        lblAnio.setBounds(20, 80, 46, 14);
+        contentPane.add(lblAnio);
+
+        txtAnio = new JTextField();
+        txtAnio.setBackground(new Color(255, 204, 255));
+        txtAnio.setBounds(80, 77, 86, 20);
+        contentPane.add(txtAnio);
+        txtAnio.setColumns(10);
+
+        // Botón Calcular
+        JButton btnCalcular = new JButton("Calcular Edad");
+        btnCalcular.setBackground(new Color(255, 51, 255));
+        btnCalcular.setForeground(new Color(255, 153, 255));
+        btnCalcular.setBounds(20, 120, 150, 23);
+        contentPane.add(btnCalcular);
+        btnCalcular.addActionListener(e -> calcularEdad());
+
+        // Etiqueta resultado
+        lblEdad = new JLabel("Edad:");
+        lblEdad.setForeground(new Color(255, 51, 255));
+        lblEdad.setBounds(20, 160, 200, 14);
+        contentPane.add(lblEdad);
+    }
+
+
+    protected void calcularEdad() {
+        try {
+            int dia = Integer.parseInt(txtDia.getText().trim());
+            int mes = Integer.parseInt(txtMes.getText().trim());
+            int anio = Integer.parseInt(txtAnio.getText().trim());
+
+            LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
+            int edad = calcularAnios(fechaNacimiento);
+
+            lblEdad.setText("Edad: " + edad + " años");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Por favor, ingrese una fecha válida.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            lblEdad.setText("Edad:");
+        }
+    }
+
+
+    private int calcularAnios(LocalDate fechaNacimiento) {
+        LocalDate hoy = LocalDate.now();
+        return Period.between(fechaNacimiento, hoy).getYears();
+    }
+}
