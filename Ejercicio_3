@@ -1,0 +1,274 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class BoletaPago extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textTrabajador;
+	private JLabel lblSueldoB;
+	private JTextField textSueldoB;
+	private JTextField textHExtras;
+	private JLabel lblHExtras;
+	private JTextField txtPagoHEx;
+	private JTextField txtRenta;
+	private JTextField txtFonavi;
+	private JTextField txtAFP;
+	private JTextField txtSueldoN;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BoletaPago frame = new BoletaPago();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public BoletaPago() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 329);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(243, 244, 219));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JRadioButton rdbtnDiurno = new JRadioButton("Diurno");
+		rdbtnDiurno.setForeground(new Color(238, 199, 15));
+		rdbtnDiurno.setBackground(new Color(243, 244, 219));
+		rdbtnDiurno.setBounds(305, 64, 63, 21);
+		contentPane.add(rdbtnDiurno);
+		
+		JRadioButton rdbtnNocturno = new JRadioButton("Nocturno");
+		rdbtnNocturno.setForeground(new Color(238, 199, 15));
+		rdbtnNocturno.setBackground(new Color(243, 244, 219));
+		rdbtnNocturno.setBounds(305, 87, 75, 21);
+		contentPane.add(rdbtnNocturno);
+		
+		ButtonGroup grupoTurno = new ButtonGroup();
+		grupoTurno.add(rdbtnDiurno);
+		grupoTurno.add(rdbtnNocturno);
+		
+		JLabel lblTrabajador = new JLabel("Trabajador:");
+		lblTrabajador.setForeground(new Color(0, 128, 0));
+		lblTrabajador.setBounds(33, 20, 75, 13);
+		contentPane.add(lblTrabajador);
+		
+		textTrabajador = new JTextField();
+		textTrabajador.setBounds(158, 17, 232, 19);
+		contentPane.add(textTrabajador);
+		textTrabajador.setColumns(10);
+		
+		lblSueldoB = new JLabel("Sueldo Basico S/.");
+		lblSueldoB.setForeground(new Color(0, 128, 0));
+		lblSueldoB.setBounds(33, 45, 102, 13);
+		contentPane.add(lblSueldoB);
+		
+		textSueldoB = new JTextField();
+		textSueldoB.setColumns(10);
+		textSueldoB.setBounds(158, 42, 96, 19);
+		contentPane.add(textSueldoB);
+		
+		JLabel lblPagoHEx = new JLabel("Pago Horas Extras S/.");
+		lblPagoHEx.setForeground(new Color(0, 128, 0));
+		lblPagoHEx.setBounds(33, 91, 124, 13);
+		contentPane.add(lblPagoHEx);
+		
+		textHExtras = new JTextField();
+		textHExtras.setColumns(10);
+		textHExtras.setBounds(158, 65, 96, 19);
+		contentPane.add(textHExtras);
+		
+		lblHExtras = new JLabel("Horas Extras:");
+		lblHExtras.setForeground(new Color(0, 128, 0));
+		lblHExtras.setBounds(33, 68, 75, 13);
+		contentPane.add(lblHExtras);
+		
+		
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(238, 199, 15));
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAceptar.setBackground(new Color(254, 251, 233));
+		btnAceptar.setBounds(305, 138, 85, 21);
+		contentPane.add(btnAceptar);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBackground(new Color(254, 251, 233));
+		btnLimpiar.setForeground(new Color(238, 199, 15));
+		btnLimpiar.setBounds(305, 163, 85, 21);
+		contentPane.add(btnLimpiar);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(238, 199, 15));
+		btnSalir.setBackground(new Color(254, 251, 233));
+		btnSalir.setBounds(305, 194, 85, 21);
+		contentPane.add(btnSalir);
+		
+		JCheckBox chckbxRenta = new JCheckBox("Renta");
+		chckbxRenta.setForeground(new Color(238, 199, 15));
+		chckbxRenta.setBackground(new Color(243, 244, 219));
+		chckbxRenta.setBounds(45, 149, 75, 21);
+		contentPane.add(chckbxRenta);
+		
+		JCheckBox chckbxFonavi = new JCheckBox("Fonavi");
+		chckbxFonavi.setForeground(new Color(238, 199, 15));
+		chckbxFonavi.setBackground(new Color(243, 244, 219));
+		chckbxFonavi.setBounds(45, 172, 75, 21);
+		contentPane.add(chckbxFonavi);
+		
+		JCheckBox chckbxAFP = new JCheckBox("AFP");
+		chckbxAFP.setForeground(new Color(238, 199, 15));
+		chckbxAFP.setBackground(new Color(243, 244, 219));
+		chckbxAFP.setBounds(45, 194, 75, 21);
+		contentPane.add(chckbxAFP);
+		
+		JLabel lblSueldoN = new JLabel("Sueldo Neto S/.");
+		lblSueldoN.setForeground(new Color(0, 128, 0));
+		lblSueldoN.setBounds(33, 245, 93, 13);
+		contentPane.add(lblSueldoN);
+		
+		txtPagoHEx = new JTextField();
+		txtPagoHEx.setBackground(new Color(254, 251, 233));
+		txtPagoHEx.setEditable(false);
+		txtPagoHEx.setBounds(158, 88, 96, 19);
+		contentPane.add(txtPagoHEx);
+		txtPagoHEx.setColumns(10);
+		
+		txtRenta = new JTextField();
+		txtRenta.setBackground(new Color(254, 251, 233));
+		txtRenta.setEditable(false);
+		txtRenta.setBounds(132, 150, 96, 19);
+		contentPane.add(txtRenta);
+		txtRenta.setColumns(10);
+		
+		txtFonavi = new JTextField();
+		txtFonavi.setBackground(new Color(254, 251, 233));
+		txtFonavi.setEditable(false);
+		txtFonavi.setBounds(132, 173, 96, 19);
+		contentPane.add(txtFonavi);
+		txtFonavi.setColumns(10);
+		
+		txtAFP = new JTextField();
+		txtAFP.setBackground(new Color(254, 251, 233));
+		txtAFP.setEditable(false);
+		txtAFP.setBounds(132, 195, 96, 19);
+		contentPane.add(txtAFP);
+		txtAFP.setColumns(10);
+		
+		txtSueldoN = new JTextField();
+		txtSueldoN.setBackground(new Color(254, 251, 233));
+		txtSueldoN.setEditable(false);
+		txtSueldoN.setBounds(132, 242, 110, 19);
+		contentPane.add(txtSueldoN);
+		txtSueldoN.setColumns(10);
+		
+		JPanel BordeTurno = new JPanel();
+		BordeTurno.setBackground(new Color(243, 244, 219));
+		BordeTurno.setBorder(BorderFactory.createTitledBorder("Turno"));
+		BordeTurno.setBounds(295, 45, 102, 83);
+		contentPane.add(BordeTurno);
+		
+		JPanel BordeDescuentos = new JPanel();
+		BordeDescuentos.setBackground(new Color(243, 244, 219));
+		BordeDescuentos.setBorder(BorderFactory.createTitledBorder("Descuentos"));
+		BordeDescuentos.setBounds(33, 132, 210, 96);
+		contentPane.add(BordeDescuentos);
+		
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String nombre = textTrabajador.getText();
+					double sueldoBasico = Double.parseDouble(textSueldoB.getText());
+					int horasExtras = Integer.parseInt(textHExtras.getText());
+					
+					double tarifaHoraExtra = 0;
+					if (rdbtnDiurno.isSelected()) {
+						tarifaHoraExtra = 10;
+					} else if (rdbtnNocturno.isSelected()) {
+						tarifaHoraExtra = 15;
+					} else {
+						txtPagoHEx.setText("Selecciona turno");
+						return;
+					}
+					double pagoHorasExtras = horasExtras * tarifaHoraExtra;
+					txtPagoHEx.setText(String.format("%.2f", pagoHorasExtras));
+					
+					double renta = 0, fonavi = 0, afp = 0;
+					if (chckbxRenta.isSelected()) {
+						renta = sueldoBasico * 0.10;
+					}
+					if (chckbxFonavi.isSelected()) {
+						fonavi = sueldoBasico * 0.07;
+					}
+					if (chckbxAFP.isSelected()) {
+						afp = sueldoBasico * 0.03;
+					}
+					
+					txtRenta.setText(String.format("%.2f", renta));
+					txtFonavi.setText(String.format("%.2f", fonavi));
+					txtAFP.setText(String.format("%.2f", afp));
+					
+					double ingresos = sueldoBasico + pagoHorasExtras;
+					double egresos = renta + fonavi + afp;
+					double sueldoNeto = ingresos - egresos;
+					
+					txtSueldoN.setText(String.format("%.2f", sueldoNeto));
+					
+				} catch (NumberFormatException ex) {
+					txtSueldoN.setText("Error en entrada");
+				}
+			}
+		});
+		btnLimpiar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        textTrabajador.setText("");
+		        textHExtras.setText("");
+		        textSueldoB.setText("");
+		        txtPagoHEx.setText("");
+		        txtSueldoN.setText("");
+		        txtRenta.setText("");
+		        txtAFP.setText("");
+		        txtFonavi.setText("");
+		        rdbtnDiurno.setSelected(false);
+		        rdbtnNocturno.setSelected(false);
+		        grupoTurno.clearSelection(); 
+		        textTrabajador.requestFocus();
+		    }
+		});
+
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+		    }
+		});
+	}
+}
