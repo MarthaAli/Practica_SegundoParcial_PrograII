@@ -1,0 +1,199 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
+
+public class CajeroAutomatico extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txt10;
+	private JTextField txtCantidad;
+	private JTextField txt20;
+	private JTextField txt50;
+	private JTextField txt100;
+	private JTextField txt200;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CajeroAutomatico frame = new CajeroAutomatico();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CajeroAutomatico() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(134, 180, 221));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblCantidad = new JLabel("Cantidad a retirar: ");
+		lblCantidad.setForeground(new Color(202, 227, 255));
+		lblCantidad.setBounds(38, 26, 111, 13);
+		contentPane.add(lblCantidad);
+		
+		JLabel lblBilletes20 = new JLabel("Billetes de S/. 20");
+		lblBilletes20.setForeground(new Color(202, 227, 255));
+		lblBilletes20.setBounds(38, 75, 94, 13);
+		contentPane.add(lblBilletes20);
+		
+		JLabel lblBilletes10 = new JLabel("Billetes de S/. 10");
+		lblBilletes10.setForeground(new Color(202, 227, 255));
+		lblBilletes10.setBounds(38, 52, 94, 13);
+		contentPane.add(lblBilletes10);
+		
+		JLabel lblBilletes200 = new JLabel("Billetes de S/. 200");
+		lblBilletes200.setForeground(new Color(202, 227, 255));
+		lblBilletes200.setBounds(38, 161, 111, 13);
+		contentPane.add(lblBilletes200);
+		
+		JLabel lblBilletes50 = new JLabel("Billetes de S/. 50");
+		lblBilletes50.setForeground(new Color(202, 227, 255));
+		lblBilletes50.setBounds(38, 107, 94, 13);
+		contentPane.add(lblBilletes50);
+		
+		JLabel lblBilletes100 = new JLabel("Billetes de S/. 100");
+		lblBilletes100.setForeground(new Color(202, 227, 255));
+		lblBilletes100.setBounds(38, 130, 111, 13);
+		contentPane.add(lblBilletes100);
+		
+		txt10 = new JTextField();
+		txt10.setBounds(159, 49, 96, 19);
+		contentPane.add(txt10);
+		txt10.setColumns(10);
+		
+		txtCantidad = new JTextField();
+		txtCantidad.setColumns(10);
+		txtCantidad.setBounds(159, 23, 96, 19);
+		contentPane.add(txtCantidad);
+		
+		txt20 = new JTextField();
+		txt20.setBounds(159, 72, 96, 19);
+		contentPane.add(txt20);
+		txt20.setColumns(10);
+		
+		txt50 = new JTextField();
+		txt50.setBounds(159, 104, 96, 19);
+		contentPane.add(txt50);
+		txt50.setColumns(10);
+		
+		txt100 = new JTextField();
+		txt100.setBounds(159, 127, 96, 19);
+		contentPane.add(txt100);
+		txt100.setColumns(10);
+		
+		txt200 = new JTextField();
+		txt200.setBounds(159, 158, 96, 19);
+		contentPane.add(txt200);
+		txt200.setColumns(10);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setForeground(new Color(133, 173, 222));
+		btnAceptar.setBounds(311, 22, 85, 21);
+		contentPane.add(btnAceptar);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setForeground(new Color(133, 173, 222));
+		btnLimpiar.setBounds(311, 48, 85, 21);
+		contentPane.add(btnLimpiar);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.setForeground(new Color(133, 173, 222));
+		btnSalir.setBounds(311, 75, 85, 21);
+		contentPane.add(btnSalir);
+		
+		btnAceptar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int monto = Integer.parseInt(txtCantidad.getText().trim());
+
+                    if (monto <= 0) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "Por favor, ingrese un monto mayor a 0.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    if (monto % 10 != 0) {
+                        JOptionPane.showMessageDialog(
+                            null,
+                            "La cantidad debe ser múltiplo de 10.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    int[] billetes = {200, 100, 50, 20, 10};
+
+                    int[] cantBilletes = new int[billetes.length];
+
+                    int restante = monto;
+
+                    for (int i = 0; i < billetes.length; i++) {
+                        cantBilletes[i] = restante / billetes[i];
+                        restante %= billetes[i];
+                    }
+
+                    txt200.setText(String.valueOf(cantBilletes[0]));
+                    txt100.setText(String.valueOf(cantBilletes[1]));
+                    txt50.setText(String.valueOf(cantBilletes[2]));
+                    txt20.setText(String.valueOf(cantBilletes[3]));
+                    txt10.setText(String.valueOf(cantBilletes[4]));
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Por favor, ingrese una cantidad numérica válida.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+        });
+
+        btnLimpiar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                txtCantidad.setText("");
+                txt10.setText("");
+                txt20.setText("");
+                txt50.setText("");
+                txt100.setText("");
+                txt200.setText("");
+            }
+        });
+
+        btnSalir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+	}
+}
